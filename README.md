@@ -79,7 +79,7 @@ Python >= 3.7.0 or anaconda
 ## Usage
 Installation and Cloning Project:
 ```
-git clone https://github.com/Jagadeeswar-reddy-c/Online-Results-Portal.git
+git clone https://github.com/vasudevaDudyala/Online-Results-Portal.git
 cd online-results-portal
 ```
 
