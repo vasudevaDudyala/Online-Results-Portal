@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Combined Upload Forms</title>
+    <link rel="stylesheet" href="./stylesheet/button.css" />
+    <link rel="stylesheet" href="../style sheet/loadingStyle.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+
+<body>
+
+    <h2>Upload Marks</h2>
+
+    <form id="uploadMarksForm" action="upload_marks.php" method="post" enctype="multipart/form-data">
+        <label for="internal_marks">Upload Internal Marks CSV:</label>
+        <input type="file" id="internal_marks" name="internal_marks" accept=".csv" required><br><br>
+
+        <label for="external_marks">Upload External Marks CSV:</label>
+        <input type="file" id="external_marks" name="external_marks" accept=".csv" required><br><br>
+
+        <label for="semester_id">Select Semester:</label>
+        <select id="semester_id" name="semester_id" required>
+            <option value="1">Semester 1</option>
+            <option value="2">Semester 2</option>
+            <option value="3">Semester 3</option>
+            <option value="4">Semester 4</option>
+            <option value="5">Semester 5</option>
+            <option value="6">Semester 6</option>
+            <option value="7">Semester 7</option>
+            <option value="8">Semester 8</option>
+        </select><br><br>
+
+        <button id="uploadButton" class="button-5" role="button" type="submit">Upload and Insert</button>
+
+        <!-- Loading symbol -->
+        <div id="loadingSymbol" class="loader" style="display: none;"></div>
+
+        <!-- Success message -->
+        <div id="successMessage" style="display: none; color: green;">
+            Marks uploaded successfully!
+        </div>
+    </form>
+
+    <script>
+        $(document).ready(function() {
+            $("#uploadMarksForm").submit(function(event) {
+                // Prevent the default form submission
+                event.preventDefault();
+
+                // Display the loading symbol
+                $("#loadingSymbol").show();
+
+                // AJAX form submission
+                $.ajax({
+                    type: "POST",
+                    url: $(this).attr('action'),
+                    data: new FormData(this),
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(response) {
+                        // Hide the loading symbol
+                        $("#loadingSymbol").hide();
+
+                        if (response === "success") {
+                            // Display success message
+                            $("#successMessage").show();
+                        } else {
+                            // Handle other responses as needed
+                            alert(response); // You can replace this with your own logic
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
